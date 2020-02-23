@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="container" style="margin-top: 10px;">
+        <form action="/search" method="post" novalidate>
+            <div class="input-group shadow rounded">
+                <input type="text" class="form-control" name="name" placeholder="Введи имя на латинском" aria-label="Введи имя" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                <button class="btn btn-primary" type="submit" id="button-addon2">Поиск</button>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="card col" style="margin: 15px; padding: 0px;">
+                <div class="card-body text-center" style="padding: 5px; display:table-caption;">
+                  {{oponent1["name"]}} {{oponent1["surname"]}} 
+                </div>
+                <div class="card-header text-center" style="padding-top: 5px; padding-bottom: 5px;">{{oponent1["likes"]}} votes</div>
+                <a href="{{'/vote/' + oponent1['id']}}" onclick="{{ 'like(\'' + oponent1['id'] + '\')' }}" class="btn btn-primary" role="button" aria-pressed="true">Vote</a>
+            </div>
+            <p style="margin-top: 15px">vs</p>
+            <div class="card col" style="margin: 15px; padding: 0px;">
+                <div class="card-body text-center" style="padding: 5px; display:table-caption;">
+                    {{oponent2["name"]}} {{oponent2["surname"]}} 
+                </div>
+                <div class="card-header text-center">{{oponent2["likes"]}} votes</div>
+                <a href="{{'/vote/' + oponent1['id']}}" onclick="{{ 'like(\'' + oponent1['id'] + '\')' }}" class="btn btn-primary" role="button" aria-pressed="true">Vote</a>
+            </div>
+        </div>
+    </div>
+<script>
+    function like(id) {
+        if (localStorage.getItem(id) === null) {
+            localStorage.setItem(id, id);
+        }
+    }
+</script>
+
+{% endblock %}
